@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.2">
+    <title>Nodhus</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="/css/pages.css" rel="stylesheet" />
+    <link href="/css/style-Dash.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+</head>
+<body>
+
+    <div id="layout-placeholder"></div>
+
+    <div id="main-wrapper">
+        <div class="header">
+            <div class="title-container">
+                <div class="circle"></div>
+                <h1 class="title">ACTUALIZAR CLIENTES</h1>
+            </div>
+        </div>
+
+        <div class="margenform">
+        <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="container">
+                <form id="editCliente" method="PUT" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" id="id" name="id">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre">
+                            </div>
+                        </div>
+            
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="form-label">Identificación</label>
+                                <input type="text" class="form-control" id="identificacion" name="identificacion">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" name="direccion">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad" name="ciudad">
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between">
+                            <a class="btn btn-primary" href="/view/cliente/create.html">Volver</a>
+                            <button  class="btn btn-primary" id="BtnEditCliente">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> 
+            <div class="container">
+                <div id="clienteEdit"></div>
+            </div>
+        </div>
+	</div>
+    
+
+   
+    <script src="/componentes/loadSidebar.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+	<script src="/vendor/wnumb/wNumb.js"></script>
+	
+	
+
+    <script src="/js/custom.min.js"></script>
+
+	
+
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <script type="text/javascript" src="/js/cliente/editCliente.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

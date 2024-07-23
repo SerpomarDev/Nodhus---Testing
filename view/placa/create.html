@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=0.2">
+	<!-- PAGE TITLE HERE -->
+    <title>Nodhus</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="/css/pages.css" rel="stylesheet" />
+    <link href="/css/style-Dash.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="layout-placeholder"></div>
+    
+  
+  
+      <div id="main-wrapper">
+        <div class="header">
+            <div class="title-container">
+                <div class="circle"></div>
+                <h1 class="title">CREAR PLACA</h1>
+            </div>
+        </div>
+       
+
+
+        <div class="margenform">
+            <div id="content" class="p-4 p-md-0 pt-5">
+                <div class="container-fluid main-container">
+                    <form id="createPlaca" method="post" enctype="multipart/form-data" class="form">
+                        <p class="message">Complete los campos para crear una nueva placa.</p>
+                        <div class="flex">
+                            <label>
+                                <input type="text" class="input" id="placa" name="placa" required>
+                                <span>Placa</span>
+                            </label>
+                            <label>
+                                <input type="text" class="input" id="eje" name="eje" required>
+                                <span>Eje</span>
+                            </label>
+                            <label>
+                                <input type="text" class="input" id="tipologia" name="tipologia" required>
+                                <span>Tipología</span>
+                            </label>
+                        </div>
+                        <div class="flex">
+                            <label class="full-width">
+                                <select id="id_aliado" name="id_aliado" class="input" required>
+                                    <option value="">Seleccione una Opción</option>
+                                </select>
+                                <span>Propietario</span>
+                            </label>
+                        </div><br>
+                        <div class="flex">
+                            <a class="btn btn-primary" href="/view/preventas/index.html">Volver</a>
+                            <button class="btn btn-primary" id="BtnSavePlaca">Enviar</button>
+                            
+                        </div>
+                    </form>
+                </div> 
+                <div class="container">
+                    <!-- <ul class="navbar-nav header-right">
+                        <li class="nav-item">
+                            <div class="input-group search-area">
+                                <input type="text" class="form-control" placeholder="Buscar...">
+                                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+                            </div>
+                        </li>
+                    </ul> -->
+                    <div id="Placa"></div>
+                </div>
+            </div>
+        </div>
+        <script src="/componentes/loadSidebar.js"></script>
+        <script src="/js/home/scripts.js"></script>    
+        <script src="/js/custom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <script type="text/javascript" src="/js/placa/createPlaca.js"></script>
+    <script type="text/javascript" src="/js/cargar/cargarAliados.js"></script>
+    <script type="text/javascript" src="/js/placa/deletePlaca.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

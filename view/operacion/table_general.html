@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodhus</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="/css/pages.css" rel="stylesheet">
+    <link href="/css/vehiculos.css" rel="stylesheet">
+    <link href="/css/style-Dash.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div id="layout-placeholder"></div>
+    <div id="main-wrapper">
+        <div class="header">
+            <div class="title-container">
+                <div class="circle"></div>
+                <h1 class="title">TABLERO GENERAL DE OPERACIONES</h1>
+            </div>
+        </div>
+    
+        <div class="margenform">
+            <div class="container-fluid">
+                <!-- <div class="filter-container">
+                    <input type="text" id="dateFilter" placeholder="Selecciona una fecha">
+                    <button id="filterButton">Filtrar</button>
+                </div> -->
+
+              
+
+                <div class="col-xl-12">
+                    <div class="card coin-card">
+                        <div class="card-body d-sm-flex d-block align-items-center">
+                            <div class="chart-item vehicle-count">
+                                <h1>ESTADO DE LA FLOTA</h1>
+                                <div id="vehicleIcons" class="vehicle-icon">
+                                    <!-- Los iconos de vehículos se generarán dinámicamente aquí -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 
+                <div class="semaforo-container">
+                    <div class="semaforo-container export">
+                        <div class="notification basic" onclick="openModal('export')">
+                            <i class="fas fa-bell icon"></i>
+                            <span>Notificaciones Exportación</span>
+                        </div>
+                    </div>
+                    <div class="semaforo-container import">
+                        <div class="notification basic" onclick="openModal('import')">
+                            <i class="fas fa-bell icon"></i>
+                            <span>Notificaciones Importación</span>
+                        </div>
+                    </div>
+                </div>
+                
+            
+               
+                
+            
+                <!-- Modal -->
+                <div id="notificationModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2 id="modalTitle" class="modal-title"></h2>
+                        <div class="semaforo-container" id="modalBody"></div>
+                    </div>
+                </div>
+            
+
+                <div class="col-xl-12 col-xxl-12">
+                    <div class="row">  
+
+
+                        <div class="col-md-6">
+                            <div class="card progress-card">
+                                <div class="card-body d-flex">
+                                    <div class="card-body pb-0 pt-3">
+                                        <canvas id="myChart2"></canvas><br>
+                                        <div id="detailsContainer" class="mt-3" style="display: none;">
+                                            <div id="detailsHeader" class="d-flex justify-content-between align-items-center">
+                                                <h5 id="detailsTitle">Detalles</h5>
+                                                <button id="toggleDetails" class="btn btn-sm btn-primary">Ocultar</button>
+                                            </div>
+                                            <div id="detailsContent"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="col-md-6">
+                            <div class="card progress-card">
+                                <div class="card-body d-flex">
+                                    <div class="card-body pb-0 pt-3">
+                                        <canvas id="myChartImportacion"></canvas><br>
+                                        <div id="detailsContainerImportacion" class="mt-3" style="display: none;">
+                                            <div id="detailsHeaderImportacion" class="d-flex justify-content-between align-items-center">
+                                                <h5 id="detailsTitleImportacion">Detalles</h5>
+                                                <button id="toggleDetailsImportacion" class="btn btn-sm btn-primary">Ocultar</button>
+                                            </div>
+                                            <div id="detailsContentImportacion"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-md-6">
+                            <div class="card progress-card">
+                                <div class="card-body d-flex">
+                                    <ul class="card-list">
+                                        <li class="justify-content-end">Expo<span class="bg-success circle me-0 ms-2"></span></li>
+                                        <li class="justify-content-end">Impo<span class="bg-danger circle me-0 ms-2"></span></li>
+                                    </ul>
+                                    <div class="card-body pb-0 pt-3">
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card progress-card">
+                                <div class="card-body d-flex">
+                                    <ul class="card-list">
+                                        <li class="justify-content-end">Impo<span class="bg-success circle me-0 ms-2"></span></li>
+                                        <li class="justify-content-end">Expo<span class="bg-danger circle me-0 ms-2"></span></li>
+                                        <li class="justify-content-end">Tras<span class="bg-danger circle me-0 ms-2"></span></li>
+                                    </ul>
+                                    <div class="card-body pb-0 pt-3">
+                                        <div id="impoExpoChart" style="width: 500px; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+                <div class="card">
+                    <div class="card-header d-flex flex-wrap border-0 pb-0">
+                        <div class="me-auto mb-sm-0 mb-3">
+                            <h4 class="card-title mb-2">Clientes</h4>
+                        </div>
+                    </div>
+
+                    <div class="card-body pb-2">
+                        <div id="chartBar2" class="bar-chart"></div>
+                        <canvas id="clientChart" class="custom-chart-height"></canvas>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="/js/home/scripts.js"></script>
+    <script src="/js/custom.min.js"></script>
+    <script src="/js/graficas/volumenes.js"></script>
+    <script src="/js/graficas/estado_expo.js"></script>
+    <script src="/js/graficas/estado_impo.js"></script>
+    <script src="/js/graficas/clientes.js"></script>
+    <script src="/js/graficas/vehiculos.js"></script>
+    <script src="/js/graficas/inventario_patio.js"></script> 
+    <script src="/js/graficas/notificaciones.js"></script>
+</body>
+</html>

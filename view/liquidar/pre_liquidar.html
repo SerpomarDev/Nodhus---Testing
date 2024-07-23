@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=0.2">
+	<!-- PAGE TITLE HERE -->
+    <title>Nodhus</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="/css/pages.css" rel="stylesheet" />
+    <link href="/css/style-Dash.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="layout-placeholder"></div>
+
+    <div id="main-wrapper">
+        <div class="header">
+            <div class="title-container">
+                <div class="circle"></div>
+                <h1 class="title">PRE LIQUIDAR</h1>
+            </div>
+        </div>
+
+
+        <div class="margenform">
+            <div id="content" class="p-4 p-md-5 pt-5">
+                <div class="container">
+                    <form id="savePreLiquidacion" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" id="id_cliente">
+                        <input type="hidden" id="tarifa">
+                        <input type="hidden" id="id_contenedor" name="id_contenedor">
+                        <input type="hidden" id="id_costo_cliente" name="id_costo_cliente">
+                        <input type="hidden" id="id_solicitud_servicio" name="id_solicitud_servicio">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Numero contenedor</label>
+                                    <input type="text" id="numero_contenedor" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Cliente</label>
+                                    <input type="text" id="cliente" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Cantidad Conrtenedor</label>
+                                    <input type="text" id="cantidad_contenedor" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Modalidad</label>
+                                    <input type="text" id="imp_exp" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Conceptos</label>
+                                   <select id="id_concepto" class="form-control">
+                                    <option value="">Seleccione concepto</option>
+                                   </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Valor</label>
+                                    <input type="text" id="valor" name="valor" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between">
+                                <button  class="btn btn-primary" onclick="history.back()">Volver</button>
+                                <button  class="btn btn-primary" id="BtnSavePreLiquidar" >Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div><br>
+                <div class="container">
+                    <div id="pre_liquidar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/componentes/loadSidebar.js"></script>
+        <script src="/componentes/loadPreloader.js"></script>
+        <script src="/componentes/loadNavHeader.js"></script>
+  
+
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/vendor/apexchart/apexchart.js"></script>
+    <script src="/vendor/nouislider/nouislider.min.js"></script>
+    <script src="/vendor/wnumb/wNumb.js"></script>
+    <script src="/js/dashboard/dashboard-1.js"></script>
+    <script src="/js/custom.min.js"></script>
+    <script src="/js/dlabnav-init.js"></script>
+    <script src="/js/demo.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <script type="module" src="/js/cargar/cargarSp.js"></script>
+    <script type="module" src="/js/liquidar/pre_liquidar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.sesionok {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 9999; /* Asegurarse de que esté por encima de todo */
+    visibility: hidden; /* Ocultar por defecto */
+    opacity: 0; /* Para animación */
+    transition: visibility 0s, opacity 0.3s ease; /* Para suavizar la aparición */
+}
+
+.sesionok.show {
+    visibility: visible; /* Mostrar cuando se agregue la clase show */
+    opacity: 1; /* Para animación */
+}
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    position: relative;
+}
+
+.login-container {
+    width: 320px;
+    padding: 70px 30px;
+    background: rgba(0, 0, 0, 0.8); /* Aumentado el contraste del fondo */
+    border-radius: 5px; /* Añadido un poco de borde redondeado */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.login-container h2 {
+    margin-top: 0;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nodhus-logo {
+    max-width: 250px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px; /* Ajustado el padding */
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 5px; /* Añadido un borde redondeado */
+    background-color: #1a1a1a;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.input-field::placeholder {
+    color: #ffffff;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Añadido un borde redondeado */
+    cursor: pointer;
+    margin-top: 10px; /* Ajustado el margen */
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.forgot-password {
+    margin-top: 20px;
+    font-size: 16px; /* Ajustado el tamaño de la fuente */
+    color: #fff;
+    text-align: center;
+}
+
+.forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+    transition: text-decoration 0.3s ease;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
