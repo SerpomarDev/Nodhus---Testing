@@ -1,17 +1,12 @@
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
     // Obtener referencias a los elementos del DOM relevantes
-    const loginButton = document.getElementById("login-button");
     const overlay = document.getElementById("overlay");
     const closeBtn = document.getElementById("close-btn");
     const loginForm = document.getElementById("login-form");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
 
-    // Manejar el clic en el botón de inicio de sesión
-    loginButton.addEventListener("click", () => {
-        overlay.style.display = "block"; // Mostrar el formulario de inicio de sesión
-    });
 
     // Manejar el clic en el botón de cerrar
     closeBtn.addEventListener("click", () => {
