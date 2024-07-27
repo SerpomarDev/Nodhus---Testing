@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   loadSidebar();
-
+  
   $("#layoutv2-placeholder").load("/Componentes/layoutv2.html", function() {
     console.log('layoutv2 loaded'); // Mensaje de depuración
     initializeLoginComponent(); // Inicializa el componente después de cargar el contenido
@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadSidebar() {
-  var loggedInUser = localStorage.getItem('loggedInUser');
-  if (!loggedInUser) {
-    // Redirige a logout.html si no hay usuario autenticado
-    window.location.href = '/logout.html';
-    return;
-  }
+  // var loggedInUser = localStorage.getItem('loggedInUser');
+  // if (!loggedInUser) {
+  //   // Redirige a logout.html si no hay usuario autenticado
+  //   window.location.href = '/logout.html';
+  //   return;
+  // }
 
   fetch('/Componentes/layout.html')
     .then(response => {
@@ -75,6 +75,7 @@ function initializeMenu(loggedInUser) {
         $('#menu > li:contains("Tu Rol: Control Acceso")').hide();
         $('#menu > li:contains("Tu Rol: Acceso Patio")').hide();
         $('#menu > li:contains("Tu Rol: Patio")').hide();
+        $('#menu > li:contains("Tu Rol: Visitante")').hide();
         $('#menu > li:contains("Tu Rol: Visitante")').hide();
         break;
       // ROL GENERAL **************************************************  
