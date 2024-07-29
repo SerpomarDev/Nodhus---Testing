@@ -11,7 +11,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             title: 'Contraseña inválida',
             text: 'La contraseña debe tener al menos 8 caracteres'
         });
-        return; // Detiene el envío del formulario si la contraseña es inválida
+        return; 
     }
 
     if (password !== passwordConfirmation) {
@@ -20,9 +20,9 @@ document.getElementById('login-form').addEventListener('submit', function(event)
             title: 'Contraseñas no coinciden',
             text: 'Las contraseñas no coinciden'
         });
-        return; // Detiene el envío del formulario si las contraseñas no coinciden
+        return; 
     }
-
+    
     // Recopila los datos del formulario
     const formData = new FormData(this);
     const data = {};

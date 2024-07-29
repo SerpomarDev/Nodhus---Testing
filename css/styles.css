@@ -79,6 +79,7 @@ nav ul li a.active::after {
     text-decoration: none;
     font-weight: bold;
     background-color: #00aaff;
+    margin: 10px;
     padding: 25px 30px; /* Ajustar el relleno para el espaciado */
     border-radius: 5px;
     font-size: 14px;
@@ -87,6 +88,25 @@ nav ul li a.active::after {
 }
 
 .profile-link:hover {
+    background-color: #007acc;
+    transform: translateY(-2px);
+}
+
+
+.logout-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #00aaff;
+    margin: 40px;
+    padding: 20px 30px; /* Ajustar el relleno para el espaciado */
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.3s;
+    flex-shrink: 0;
+}
+
+.logout-link:hover {
     background-color: #007acc;
     transform: translateY(-2px);
 }
