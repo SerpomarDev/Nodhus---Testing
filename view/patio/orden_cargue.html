@@ -6,24 +6,46 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=0.2">
-	<!-- PAGE TITLE HERE -->
 	<title>Nodhus</title>
+    <script type="text/javascript" src="/js/patio/order_details_script.js"></script> 
     <link rel="stylesheet" href="/css/styles.css">
     <link href="/css/pages.css" rel="stylesheet" />
     <link href="/css/style-Dash.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
 </head>
+
+<header>
+    <img src="/img/nodhus.png" alt="Nodhus Logo" class="logo" id="nodhus-logo">
+ </header>
+ <div class="dlabnav">
+    <div id="layout">
+        <div class="dlabnav" id="sidebar">
+            <div class="dlabnav-scroll sidebar-scroll">
+                <ul class="metismenu" id="menu">
+                    <li id="roles-container"></li> <li id="menu-items-container"></li> 
+                    <nav>
+                        <a href="javascript:void(0)" id="logout-button" class="profile-link" aria-expanded="false">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="nav-text">Cerrar Sesión</span>
+                        </a>
+                    </nav>
+                </ul>
+                   
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <body>
-    <div id="layout-placeholder"></div>
-
-
     <div class="header">
         <div class="title-container">
             <div class="circle"></div>
             <h1 class="title">CREAR ORDEN DE CARGUE</h1>
         </div>
     </div>
+    
     <div id="main-wrapper">
       
         <div class="margenform">
@@ -165,23 +187,18 @@
         </div>
     </div>
     
+
+
+    <script src="/Componentes/loadSidebar.js"></script>
+    <script src="/Componentes/sidebar.js"></script>
+    <script src="/js/login/logout.js"></script>
+    <script src="/app.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/home/scripts.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="/componentes/loadSidebar.js"></script>
-   
-    <script src="/vendor/global/global.min.js"></script>
-    <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-    <script src="/vendor/apexchart/apexchart.js"></script>
-    <script src="/vendor/nouislider/nouislider.min.js"></script>
-    <script src="/vendor/wnumb/wNumb.js"></script>
-  
     <script src="/js/custom.min.js"></script>
-    <script src="/js/dlabnav-init.js"></script>
-    <script src="/js/demo.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
     <script type="text/javascript" src="/js/patio/create.js"></script>
