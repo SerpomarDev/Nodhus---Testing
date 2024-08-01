@@ -4,54 +4,62 @@ document.getElementById('createOrdenCargue').addEventListener('submit', function
     const jsonData = JSON.stringify(Object.fromEntries(formData));
 
     fetch('https://esenttiapp-production.up.railway.app/api/ordencargue', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: jsonData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error al enviar los datos del formulario');
-        }
-        // Fetch the last inserted ID from the API after successful form submission
-        return fetch('https://esenttiapp-production.up.railway.app/api/ordencargue/{id}'); 
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error al obtener el último ID de la orden de cargue');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const ordenCargueId = data.id; // Extract the ID from the response
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Formulario enviado',
-            text: 'El formulario ha sido enviado con éxito.',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                generarQRCode(ordenCargueId); // Pass the ID to the QR code function
-                time(); // Reset the form and redirect after QR code generation
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al enviar los datos del formulario');
             }
+            return response;
+        })
+        .then(response => {
+            if (response.ok) {
+                return fetch('https://esenttiapp-production.up.railway.app/api/ultimoresgistrood');
+            } else {
+                throw new Error('Form submission failed');
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener el último ID de la orden de cargue');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Assuming the API returns the ID directly as a string (e.g., "1811")
+            const ordenCargueId = data;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Formulario enviado',
+                text: 'El formulario ha sido enviado con éxito.',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('ID del QR code:', ordenCargueId); // Log for debugging
+                    generarQRCode(ordenCargueId);
+                    time(); // Call your time() function here
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+            });
         });
-    })
-    .catch(error => {
-        console.error('Error:', error); 
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
-          })
-    });
 });
 
 
 function generarQRCode(ordenCargueId) {
     const qrCodeText = `http://127.0.0.1:5506/view/patio/qr_acceso.html?id=${ordenCargueId}`;
     const qrCodeElement = document.getElementById('qrcode');
-    qrCodeElement.innerHTML = ""; 
+    qrCodeElement.innerHTML = "";
 
     new QRCode(qrCodeElement, {
         text: qrCodeText,
@@ -71,4 +79,3 @@ function generarQRCode(ordenCargueId) {
         link.click();
     });
 }
-
