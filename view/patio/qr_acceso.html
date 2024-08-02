@@ -4,10 +4,10 @@
 <head>
 
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=0.2">
-	<!-- PAGE TITLE HERE -->
-	<title>Nodhus</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.2">
+    <!-- PAGE TITLE HERE -->
+    <title>Nodhus</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link href="/css/pages.css" rel="stylesheet" />
     <link href="/css/style-Dash.css" rel="stylesheet" />
@@ -17,15 +17,16 @@
 
 <header>
     <img src="/img/nodhus.png" alt="Nodhus Logo" class="logo" id="nodhus-logo">
-  
- </header>
- <div class="dlabnav">
+
+</header>
+<div class="dlabnav">
     <div id="layout">
-        
+
         <div class="dlabnav" id="sidebar">
             <div class="dlabnav-scroll sidebar-scroll">
                 <ul class="metismenu" id="menu">
-                    <li id="roles-container"></li> <li id="menu-items-container"></li> 
+                    <li id="roles-container"></li>
+                    <li id="menu-items-container"></li>
                     <nav>
                         <a href="javascript:void(0)" id="logout-button" class="profile-link" aria-expanded="false">
                             <i class="fas fa-sign-out-alt"></i>
@@ -33,7 +34,7 @@
                         </a>
                     </nav>
                 </ul>
-                   
+
             </div>
         </div>
     </div>
@@ -50,173 +51,141 @@
         </div>
     </div>
     <div id="main-wrapper">
-      
+
         <div class="margenform">
             <div id="content" class="p-4 p-md-0 pt-5">
                 <div class="container-fluid main-container">
                     <form id="createOrdenCargue" method="post" enctype="multipart/form-data" class="form">
-                        <p class="message">Complete los campos para crear una nueva orden de cargue.</p>
+                        <p class="message">Información del QR.</p>
                         <div class="flex">
                             <label>
-                                <input type="date" class="input" id="fecha_solicitud" name="fecha_solicitud" required>
-                                <span>Fecha de Solicitud</span>
+                                <h10>Fecha de Solicitud</h10>
+                                <input type="date" class="input" id="fecha_solicitud" name="fecha_solicitud" required disabled>
                             </label>
                             <label>
-                                <select id="id_placa" name="id_placa" class="input" required>
-                                    <option value="">Seleccione una Opción</option>
+                                <h10>Placa</h10>
+                                <select id="id_placa" name="id_placa" class="input" required disabled>
                                 </select>
-                                <span>Placa</span>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <select id="id_cliente" name="id_cliente" class="input" required>
-                                    <option value="">Seleccione una Opción</option>
+                                <h10>Cliente</h10>
+                                <select id="id_cliente" name="id_cliente" class="input" required disabled>
                                 </select>
-                                <span>Cliente</span>
                             </label>
                             <label>
-                                <select id="id_conductor" name="id_conductor" class="input" required>
+                                <h10>Conductor</h10>
+                                <select id="id_conductor" name="id_conductor" class="input" required disabled>
                                     <option value="">Seleccione una Opción</option>
                                 </select>
-                                <span>Conductor</span>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <select id="modalidad" name="modalidad" class="input" required>
+                                <h10>Modalidad</h10>
+                                <select id="modalidad" name="modalidad" class="input" required disabled>
                                     <option value="">Seleccione una Opción</option>
                                     <option value="IMPORTACION">IMPORTACIÓN</option>
                                     <option value="EXPORTACION">EXPORTACIÓN</option>
                                     <option value="TRASLADO">TRASLADO</option>
                                 </select>
-                                <span>Modalidad</span>
                             </label>
                             <label>
-                                <select id="id_tipo_operacion" name="id_tipo_operacion" class="input" required>
+                                <h10>Tipo de Servicio</h10>
+                                <select id="id_tipo_operacion" name="id_tipo_operacion" class="input" required disabled>
                                     <option value="">Seleccione una Opción</option>
                                 </select>
-                                <span>Tipo de Servicio</span>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <input type="text" class="input" id="id_sitio_inspeccion" name="id_sitio_inspeccion" required>
-                                <span>Destino 1</span>
+                                <h10>Destino 1</h10>
+                                <input type="text" class="input" id="id_sitio_inspeccion" name="id_sitio_inspeccion" required disabled>
                             </label>
                             <label>
-                                <input type="text" class="input" id="id_sitio_inspeccion1" name="id_sitio_inspeccion1" required>
-                                <span>Destino 2</span>
+                                <h10>Destino 2</h10>
+                                <input type="text" class="input" id="id_sitio_inspeccion1" name="id_sitio_inspeccion1" required disabled>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <input type="text" class="input" id="id_sitio_inspeccion2" name="id_sitio_inspeccion2" required>
-                                <span>Destino 3</span>
+                                <h10>Destino 3</h10>
+                                <input type="text" class="input" id="id_sitio_inspeccion2" name="id_sitio_inspeccion2" required disabled>
                             </label>
                             <label>
-                                <select id="id_naviera" name="id_naviera" class="input" required>
+                                <h10>Naviera</h10>
+                                <select id="id_naviera" name="id_naviera" class="input" required disabled>
                                     <option value="">Seleccione una Opción</option>
                                 </select>
-                                <span>Naviera</span>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <input type="text" class="input" id="contenedor" name="contenedor" required>
-                                <span>Contenedor</span>
+                                <h10>Contenedor</h10>
+                                <input type="text" class="input" id="contenedor" name="contenedor" required disabled>
                             </label>
                             <label>
-                                <select id="id_tipo_contenedor" name="id_tipo_contenedor" class="input" required>
+                                <h10>Tipo de Contenedor</h10>
+                                <select id="id_tipo_contenedor" name="id_tipo_contenedor" class="input" required disabled>
                                     <option value="">Seleccione una Opción</option>
                                 </select>
-                                <span>Tipo de Contenedor</span>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <input type="number" step="0.01" class="input" id="peso" name="peso">
-                                <span>Peso</span>
+                                <h10>Peso</h10>
+                                <input  class="input" id="peso" name="peso" disabled>
                             </label>
                             <label>
-                                <input type="text" class="input" id="funcionario_transporte" name="funcionario_transporte" required>
-                                <span>Funcionario de Transporte</span>
-                            </label>
-                        </div>
-                        <div class="flex">
-                            <label>
-                                <input type="text" class="input" id="precinto" name="precinto">
-                                <span>Precinto</span>
-                            </label>
-                            <label>
-                                <input type="date" class="input" id="vencimiento_cutoff" name="vencimiento_cutoff" required>
-                                <span>Vencimiento Cut Off</span>
+                                <h10>Funcionario de Transporte</h10>
+                                <input type="text" class="input" id="funcionario_transporte" name="funcionario_transporte" required disabled>
                             </label>
                         </div>
                         <div class="flex">
                             <label>
-                                <input type="time" class="input" id="hora_soli" name="hora_soli" required>
-                                <span>Hora de Solicitud</span>
+                                <h10>Precinto</h10>
+                                <input type="text" class="input" id="precinto" name="precinto" disabled>
+                            </label>
+                            <label>
+                                <h10>Vencimiento Cut Off</h10>
+                                <input type="date" class="input" id="vencimiento_cutoff" name="vencimiento_cutoff" required disabled>
+                            </label>
+                        </div>
+                        <div class="flex">
+                            <label>
+                                <h10>Hora de Solicitud</h10>
+                                <input type="time" class="input" id="hora_soli" name="hora_soli" required disabled>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="full-width">
-                                <textarea class="input" id="observaciones" name="observaciones" rows="3"></textarea>
-                                <span>Observaciones</span>
+                                <h10>Observaciones</h10>
+                                <textarea class="input" id="observaciones" name="observaciones" rows="3" disabled></textarea>
                             </label>
                         </div>
                         <div class="submit-container">
-                            <button class="submit" id="BtnSavePlaca">Enviar</button>
+                            <button class="submit" id="">siguiente</button>
                         </div>
-                        <p class="signin"><a href="/view/preventas/index.html">Volver</a></p>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- QR Code Modal -->
-        <div class="modal" id="qrModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">QR - Orden de Cargue</h5>
-                    </div>
-                    <div class="modal-body" id="qrcode" style="text-align: center;"></div>
-                    <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-secondary" id="downloadQR">Descargar QR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
 
-    <script src="/Componentes/loadSidebar.js"></script>
-    <script src="/Componentes/sidebar.js"></script>
-    <script src="/js/login/logout.js"></script>
-    <script src="/app.js"></script>
+        <script src="/js/patio/qr_acceso.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/home/scripts.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="/Componentes/loadSidebar.js"></script>
+        <script src="/Componentes/sidebar.js"></script>
+        <script src="/js/login/logout.js"></script>
+        <script src="/app.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  
-    <script src="/js/custom.min.js"></script>
+        <script src="/js/custom.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
-    <script type="text/javascript" src="/js/patio/create.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarPlaca.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarClientes.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarConductores.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarTipoServicio.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarDestino.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarDestino1.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarDestino2.js"></script>
-    <script type="text/javascript" src="/js/cargar/cargarNaviera.js"></script>
-    <script type="text/javascript" src="/js/cargar/CargarTipoContenedor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
+
 </html>
