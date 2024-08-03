@@ -164,28 +164,41 @@
                                 <textarea class="input" id="observaciones" name="observaciones" rows="3" disabled></textarea>
                             </label>
                         </div>
-                        <div class="submit-container">
-                            <button class="submit" id="">siguiente</button>
-                        </div>
-                    </form>
+                    </form><br>
+
+                    <div class="submit-container">
+                        <a id="rechazo"><button class="submit">Rechazar</button></a>
+                        <a id="siguienteLink"><button class="submit">siguiente</button></a>
+                    </div>
                 </div>
             </div>
         </div>
 
 
         <script src="/js/patio/qr_acceso.js"></script>
-
         <script src="/Componentes/loadSidebar.js"></script>
         <script src="/Componentes/sidebar.js"></script>
         <script src="/js/login/logout.js"></script>
         <script src="/app.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
         <script src="/js/custom.min.js"></script>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Obtener el ID de la URL actual
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
 
+                // Establecer el enlace del botón "siguiente"
+                const siguienteLink = document.getElementById('siguienteLink');
+                if (siguienteLink) {
+                    siguienteLink.href = `/view/patio/qr_fotos.html?id=${id}`;
+                } else {
+                    console.error("No se encontró el elemento #siguienteLink");
+                }
+            });
+        </script>
 </body>
 
 </html>
