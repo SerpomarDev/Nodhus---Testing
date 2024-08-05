@@ -1,123 +1,47 @@
+// Obtén el ID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
-if (id) {
-    const apiUrlOrdenCargue = `https://esenttiapp-production.up.railway.app/api/ordencargue/${id}`;
+// URL de tu API
+const apiUrl = `https://esenttiapp-production.up.railway.app/api/uploadordenbyqr/${id}`;
 
+// Función para llenar el formulario
+async function llenarFormulario() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-    fetch(apiUrlOrdenCargue)
-        .then(response => { if (!response.ok) { throw new Error(`Error fetching data: ${response.status} ${response.statusText}`); } return response.json(); }).then(data => {
+        if (data.length > 0) {
+            const orden = data[0];
 
-            document.getElementById('fecha_solicitud').value = data.fecha_solicitud;
-            document.getElementById('id_sitio_inspeccion').value = data.id_sitio_inspeccion;
-            document.getElementById('id_sitio_inspeccion1').value = data.id_sitio_inspeccion1;
-            document.getElementById('id_sitio_inspeccion2').value = data.id_sitio_inspeccion2;
-            document.getElementById('contenedor').value = data.contenedor;
-            document.getElementById('peso').value = data.peso;
-            document.getElementById('funcionario_transporte').value = data.funcionario_transporte;
-            document.getElementById('vencimiento_cutoff').value = data.vencimiento_cutoff;
-            document.getElementById('hora_soli').value = data.hora_soli;
-            document.getElementById('precinto').value = data.precinto;
-            document.getElementById('observaciones').value = data.observaciones;
-            setSelectedOption('modalidad', data.modalidad);
+            // Campos de texto e input
+            document.getElementById('fecha_solicitud').value = orden.fecha_solicitud;
+            document.getElementById('id_sitio_inspeccion').value = orden.sitio_inspeccion;
+            document.getElementById('id_sitio_inspeccion1').value = orden.sitio_inspeccion1;
+            document.getElementById('id_sitio_inspeccion2').value = orden.sitio_inspeccion2;
+            document.getElementById('contenedor').value = orden.contenedor;
+            document.getElementById('peso').value = orden.peso;
+            document.getElementById('funcionario_transporte').value = orden.funcionario;
+            document.getElementById('precinto').value = orden.precinto;
+            document.getElementById('vencimiento_cutoff').value = orden.vencimiento;
+            document.getElementById('hora_soli').value = orden.hora;
+            document.getElementById('observaciones').value = orden.observacion;
 
-
-            Promise.all([
-                fetch('https://esenttiapp-production.up.railway.app/api/loadplaca').then(res => res.json()),
-                fetch('https://esenttiapp-production.up.railway.app/api/uploadclientes').then(res => res.json()),
-                fetch('https://esenttiapp-production.up.railway.app/api/uploadconductor').then(res => res.json()),
-                fetch('https://esenttiapp-production.up.railway.app/api/tiposervicios').then(res => res.json()),
-                fetch('https://esenttiapp-production.up.railway.app/api/navieras').then(res => res.json()),
-                fetch('https://esenttiapp-production.up.railway.app/api/tipocontenedores').then(res => res.json())
-            ]).then(([placas, clientes, conductores, tiposServicios, navieras, tipocontenedores]) => {
-
-                populateSelect('id_placa', placas, data.id_placa);
-                populateSelect('id_cliente', clientes, data.id_cliente);
-                populateSelect('id_conductor', conductores, data.id_conductor);
-                populateSelect('id_tipo_operacion', tiposServicios, data.id_tipo_operacion);
-                populateSelect('id_naviera', navieras, data.id_naviera);
-                populateSelect('id_tipo_contenedor', tipocontenedores, data.id_tipo_contenedor);
-            }).catch(error => {
-                console.error('Error data:', error);
-            });
-        }).catch(error => {
-            console.error('Error:', error);
-            hideLoadingMessage();
-
-            showErrorMesage("Error al cargar los datos. Por favor, inténtalo de nuevo.");
-        });
-} else {
-    console.error('ID no encontrado en la URL');
-}
-
-
-function populateSelect(selectId, options, selectedValue) {
-    const selectElement = document.getElementById(selectId);
-    selectElement.innerHTML = '';
-
-
-    options.forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option.id;
-
-        optionElement.text = option.nombre;
-        selectElement.add(optionElement);
-    });
-
-
-    setSelectedOption(selectId, selectedValue);
-}
-
-
-function setSelectedOption(selectId, value) {
-    const selectElement = document.getElementById(selectId);
-    for (const option of selectElement.options) { if (option.value == value) { option.selected = true; break; } }
-}
-
-
-function showLoadingMessage() {
-    // Crea un elemento div para el mensaje de carga
-    const loadingMessage = document.createElement('div');
-    loadingMessage.id = 'loading-message';
-    loadingMessage.textContent = 'Cargando...';
-
-    // Estiliza el mensaje (opcional)
-    loadingMessage.style.position = 'fixed';
-    loadingMessage.style.top = '50%';
-    loadingMessage.style.left = '50%';
-    loadingMessage.style.transform = 'translate(-50%, -50%)';
-    loadingMessage.style.padding = '10px';
-    loadingMessage.style.backgroundColor = '#f0f0f0';
-
-    // Agrega el mensaje al cuerpo del documento
-    document.body.appendChild(loadingMessage);
-}
-
-function hideLoadingMessage() {
-    const loadingMessage = document.getElementById('loading-message');
-    if (loadingMessage) {
-        document.body.removeChild(loadingMessage);
+            // Campos select (mostrar valor directamente)
+            document.getElementById('id_placa').value = orden.placa;
+            document.getElementById('id_cliente').value = orden.cliente;
+            document.getElementById('id_conductor').value = orden.conductor;
+            document.getElementById('modalidad').value = orden.modalidad;
+            document.getElementById('id_tipo_operacion').value = orden.tipo_operacion;
+            document.getElementById('id_naviera').value = orden.linea_maritima;
+            document.getElementById('id_tipo_contenedor').value = orden.tipo_contenedor;
+        } else {
+            console.error('No se encontraron datos para este ID');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos de la API:', error);
     }
 }
 
-function showErrorMessage(message) {
-
-    const errorMessage = document.createElement('div');
-    errorMessage.id = 'error-message';
-    errorMessage.textContent = message;
-
-    errorMessage.style.position = 'fixed';
-    errorMessage.style.top = '10px';
-    errorMessage.style.left = '10px';
-    errorMessage.style.padding = '10px';
-    errorMessage.style.backgroundColor = '#f5c6cb'; // Rojo claro
-    errorMessage.style.color = '#721c24'; // Rojo oscuro
-
-    document.body.appendChild(errorMessage);
-
-    setTimeout(() => {
-        if (errorMessage) {
-            document.body.removeChild(errorMessage);
-        }
-    }, 5000); // 5 segundos
-}
+// Llama a la función para llenar el formulario al cargar la página
+llenarFormulario();

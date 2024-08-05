@@ -28,7 +28,6 @@ document.getElementById('createOrdenCargue').addEventListener('submit', function
             return response.json();
         })
         .then(data => {
-            // Assuming the API returns the ID directly as a string (e.g., "1811")
             const ordenCargueId = data;
 
             Swal.fire({
@@ -38,9 +37,9 @@ document.getElementById('createOrdenCargue').addEventListener('submit', function
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log('ID del QR code:', ordenCargueId); // Log for debugging
+                    console.log('ID del QR code:', ordenCargueId);
                     generarQRCode(ordenCargueId);
-                    time(); // Call your time() function here
+                    time();
                 }
             });
         })
