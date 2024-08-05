@@ -155,7 +155,7 @@ new gridjs.Grid({
 function time() {
     document.getElementById('craeateAccesoPatio').reset();
     setTimeout(() => {
-        window.location.href = `/view/patio/acceso_patio.html`;
+
     }, 1200);
 }
 
@@ -175,7 +175,7 @@ function salidaContenedor($contenedor, $operacion) {
             console.log('Estado actualizado con éxito:', data);
             Swal.fire({
                 title: "¡Buen trabajo!",
-                text: "Estado actualizado!",
+                text: "Orden actualizada!",
                 icon: "success"
             });
             time()

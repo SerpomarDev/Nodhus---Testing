@@ -47,7 +47,7 @@
             font-weight: bold;
         }
         
-        span {
+        h10 {
             color: #313131c1;
         }
         
@@ -232,7 +232,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <span>Observaciones</span>
+                            <h10>Observaciones</h10>
                             <label class="form-label"> </label>
                             <textarea class="form-control" id="observaciones" name="observaciones"></textarea>
                         </div>
@@ -278,7 +278,8 @@
                         icon: 'ATENCIÓN',
                         showCancelButton: true,
                         confirmButtonText: 'Sí, finalizar',
-                        cancelButtonText: 'Cancelar'
+                        cancelButtonText: 'Cancelar',
+                        icon: "warning"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = '/view/patio/inventario.html';
