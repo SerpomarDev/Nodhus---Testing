@@ -22,19 +22,12 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 
-// Genera un UUID
-function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = (Math.random() * 16) | 0,
-            v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
     const modal = document.getElementById('fileUploadModal');
     const span = document.getElementsByClassName('close')[0];
-    const idAsignacion = getQueryParam('id'); // Obtiene el ID de la solicitud desde la URL
+    const idAsignacion = getQueryParam('id');
+    const detailsModal = document.getElementById('detailsModal');
+    const closeModal = document.getElementById('closeModal');
 
     span.onclick = function() {
         modal.style.display = 'none';
@@ -44,6 +37,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
+    }
+
+    closeModal.onclick = function() {
+        detailsModal.style.display = 'none';
     }
 
     document.getElementById('btnAdjuntos').onclick = function() {
@@ -57,32 +54,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         const myDropzone = new Dropzone('#SaveFile', {
             autoProcessQueue: false,
-            acceptedFiles: '.pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.png,.jpeg',
+            acceptedFiles: 'image/*', // Accept only image files
             init: function() {
                 this.on('addedfile', async function(file) {
                     let fileName = file.name;
                     let filePath = `orden_cargue/${id}/${fileName}`;
                     const storageRef = ref(storage, filePath);
 
-                    // Verifica si el archivo ya existe
+                    // Check if the file already exists
                     const existingFiles = await listAll(ref(storage, `orden_cargue/${id}`));
                     const fileNames = existingFiles.items.map(item => item.name);
 
-                    // Si el nombre del archivo ya existe, añade un timestamp
+                    // If the file name already exists, add a timestamp
                     if (fileNames.includes(fileName)) {
                         const timestamp = Date.now();
                         const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-                        const fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-                        fileName = `${fileNameWithoutExtension}_${timestamp}${fileExtension}`;
+                        fileName = `${fileName.substring(0, fileName.lastIndexOf('.'))}_${timestamp}${fileExtension}`;
                         filePath = `orden_cargue/${id}/${fileName}`;
                     }
 
                     const newStorageRef = ref(storage, filePath);
-
                     try {
                         await uploadBytes(newStorageRef, file);
                         console.log(`File uploaded: ${fileName}`);
-                        // Actualizar la lista de archivos adjuntos después de una carga exitosa
                         loadUploadedFiles(id);
                         this.removeFile(file);
                     } catch (error) {
@@ -110,10 +104,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 for (const itemRef of res.items) {
                     const url = await getDownloadURL(itemRef);
                     const listItem = document.createElement('li');
+
+                    // Create image element for preview
+                    const imgPreview = document.createElement('img');
+                    imgPreview.src = url;
+                    imgPreview.alt = itemRef.name;
+                    imgPreview.style.maxWidth = '100px';
+                    imgPreview.style.maxHeight = '100px';
+                    imgPreview.style.cursor = 'pointer';
+                    imgPreview.onclick = () => showImageInModal(url, itemRef.name);
+
+                    // Create link for opening in new tab
                     const link = document.createElement('a');
                     link.href = url;
-                    link.target = '_blank'; // Abre en una nueva pestaña
+                    link.target = '_blank';
                     link.textContent = itemRef.name;
+
+                    listItem.appendChild(imgPreview);
                     listItem.appendChild(link);
                     fileList.appendChild(listItem);
                 }
@@ -122,5 +129,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.error('Error loading uploaded files:', error);
             alert('Ocurrió un error al cargar los archivos adjuntos. Por favor, inténtelo de nuevo más tarde.');
         }
+    }
+
+    function showImageInModal(imageUrl, imageName) {
+        const modalContent = document.getElementById('modalDetailsContent');
+        modalContent.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.style.maxWidth = '90%';
+        img.style.maxHeight = '90%';
+        img.alt = imageName;
+
+        const figcaption = document.createElement('figcaption');
+        figcaption.textContent = imageName;
+
+        modalContent.appendChild(img);
+        modalContent.appendChild(figcaption);
+        detailsModal.style.display = 'block';
     }
 });

@@ -57,7 +57,8 @@ document.getElementById('createOrdenCargue').addEventListener('submit', function
 
 
 function generarQRCode(ordenCargueId) {
-    const qrCodeText = `http://127.0.0.1:5506/view/patio/qr_acceso.html?id=${ordenCargueId}`;
+    const currentOrigin = window.location.origin;
+    const qrCodeText = `${currentOrigin}/view/patio/qr_acceso.html?id=${ordenCargueId}`;
     const qrCodeElement = document.getElementById('qrcode');
     qrCodeElement.innerHTML = "";
 

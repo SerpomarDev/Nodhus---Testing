@@ -97,21 +97,30 @@
         }
         
         #uploadedFilesList {
-            list-style: none;
-            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         #uploadedFilesList li {
-            background: #f1f1f1;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
+            width: 120px;
+            margin: 5px;
+        }
+        
+        #uploadedFilesList img {
+            width: 100%;
+            height: auto;
         }
         
         .upload-btn.file-uploaded {
             background-color: #007bff;
             color: white;
             border: none;
+        }
+        
+        #detailsModal img {
+            display: block;
+            margin: 0 auto;
         }
     </style>
 
@@ -158,10 +167,14 @@
 
         <div class="margenform">
             <div id="content" class="p-4 p-md-0 pt-5">
+                <br><br><br>
                 <div class="container-fluid main-container">
                     <div style="display: flex; justify-content: center; width: 100%;">
+
                         <button type="submit" class="btn btn-primary" id="btnAdjuntos">
+                            <br><br>
                             <i class="fas fa-upload"></i> subir Fotos
+                            <br><br><br>
                         </button>
 
                         <div id="fileUploadModal" class="modal">
@@ -182,6 +195,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div id="detailsModal" class="modal">
                             <div class="modal-content">
