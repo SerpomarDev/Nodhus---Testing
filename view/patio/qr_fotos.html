@@ -196,7 +196,6 @@
                             </div>
                         </div>
 
-
                         <div id="detailsModal" class="modal">
                             <div class="modal-content">
                                 <span class="close" id="closeModal">&times;</span>
@@ -205,17 +204,43 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-
-
+    <div class="">
+        <br><br>
+        <div id="content" class="p-4 p-md-0 pt-5">
+            <div class="container-fluid main-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <span>Tipo de operación</span>
+                            <label class="form-label">  </label>
+                            <select id="" name="" class="form-control" required>
+                        <option value="">Seleccione una Opción</option>
+                        <option value="IMPORTACION">ENTRADA</option>
+                        <option value="EXPORTACION">SALIDA</option>
+                        <option value="TRASLADO">CANCELAR</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+            <div class="submit-container">
+                <a id="siguienteLink"><button class="submit">Finalizar</button></a>
+            </div>
+        </div>
     </div>
 
 
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/Componentes/loadSidebar.js"></script>
     <script src="/Componentes/sidebar.js"></script>
     <script src="/js/login/logout.js"></script>
@@ -226,6 +251,36 @@
 
     <script src="/js/custom.min.js"></script>
     <script type="module" src="/js/patio/uploadFotos.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const siguienteLink = document.getElementById('siguienteLink');
+
+            if (siguienteLink) {
+                // SweetAlert2 confirmation
+                siguienteLink.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default redirect
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Se finalizará el proceso y se redigirá',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, finalizar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) { // Redirect if confirmed
+
+                            window.location.href = '/view/patio/orden_cargue.html';
+                        }
+                    });
+                });
+            } else {
+                console.error("No se encontró el elemento #siguienteLink");
+            }
+
+        });
+    </script>
 
 </body>
 
