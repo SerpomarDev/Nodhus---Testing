@@ -65,88 +65,90 @@ function comentario(id, comentario) {
 }
 
 new gridjs.Grid({
-    search: true,
-    language: {
-        search: {
-            placeholder: '🔍 Buscar...'
-        }
-    },
-    pagination: {
-        limit: 50,
-        enabled: false,
-    },
     sort: false,
-    columns: [{
-        name: "id",
-        hidden: true,
-    }, "Fecha solicitud", "contenedor", "cliente", "Tipo de contenedor", "Tipo transporte", "Cutoff", "operacion", {
-        name: "Comentarios",
-        hidden: true,
-    }, {
-        name: 'Acción',
-        formatter: (cell, row) => {
-            const operacion = row.cells[6].data;
-            const selectElement = gridjs.h('select', {
-                onchange: (e) => {
-                    const nuevoEstado = e.target.value;
-                    actualizarEstado(row.cells[0].data, nuevoEstado);
-                    if (nuevoEstado === 'RECHAZADO') {
-                        e.target.disabled = true;
-                    }
-                },
-                disabled: operacion === 'RECHAZADO'
-            }, [
-                gridjs.h('option', { value: '' }, 'Seleccione'),
-                gridjs.h('option', { value: 'ENTRADA' }, 'ENTRADA'),
-                gridjs.h('option', { value: 'SALIDA' }, 'SALIDA'),
-                gridjs.h('option', { value: 'RECHAZADO' }, 'RECHAZADO'),
-            ]);
-            return selectElement;
+    columns: [
+        { name: "id", hidden: false },
+        "contenedor",
+        "Tipo",
+        { name: "Comentarios", hidden: true },
+        {
+            name: 'Acción',
+            formatter: (cell, row) => {
+                const operacion = row.cells[6].data;
+                const selectElement = gridjs.h('select', {
+                    onchange: (e) => {
+                        const nuevoEstado = e.target.value;
+                        actualizarEstado(row.cells[0].data, nuevoEstado);
+                        if (nuevoEstado === 'RECHAZADO') {
+                            e.target.disabled = true;
+                        }
+                    },
+                    disabled: operacion === 'RECHAZADO'
+                }, [
+                    gridjs.h('option', { value: '' }, 'Seleccione'),
+                    gridjs.h('option', { value: 'ENTRADA' }, 'ENTRADA'),
+                    gridjs.h('option', { value: 'SALIDA' }, 'SALIDA'),
+                    gridjs.h('option', { value: 'RECHAZADO' }, 'RECHAZADO'),
+                ]);
+                return selectElement;
+            },
         },
-    }, {
-        name: "Observacion",
-        hidden: true,
-        formatter: (cell, row) => {
-            return gridjs.html(`<textarea id="observacion-${row.cells[0].data}">${''}</textarea>`);
+        {
+            name: "Observacion",
+            hidden: true,
+            formatter: (cell, row) => {
+                return gridjs.html(`<textarea id="observacion-${row.cells[0].data}">${''}</textarea>`);
+            }
+        },
+        {
+            name: 'Acción',
+            hidden: true,
+            formatter: (cell, row) => {
+                return gridjs.h('button', {
+                    className: 'py-2 mb-4 px-4 border rounded bg-blue-600',
+                    onClick: () => {
+                        const comentarioTexto = document.getElementById(`observacion-${row.cells[0].data}`).value;
+                        comentario(row.cells[0].data, comentarioTexto);
+                    }
+                }, 'guardar');
+            }
         }
-    }, {
-        name: 'Acción',
-        hidden: true,
-        formatter: (cell, row) => {
-            return gridjs.h('button', {
-                className: 'py-2 mb-4 px-4 border rounded bg-blue-600',
-                onClick: () => {
-                    const comentarioTexto = document.getElementById(`observacion-${row.cells[0].data}`).value;
-                    comentario(row.cells[0].data, comentarioTexto);
-                }
-            }, 'guardar');
-        }
-    }],
+    ],
     fixedHeader: true,
     server: {
         url: 'https://esenttiapp-production.up.railway.app/api/uploadordencargue',
         then: (data) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idFromUrl = urlParams.get('id');
+
             if (Array.isArray(data) && data.length > 0) {
-                return data.map((ordenCargue) => [
+                const filteredData = data.filter(ordenCargue => ordenCargue.id == idFromUrl);
+
+                if (filteredData.length === 0) {
+
+                    const errorMessage = `No se encontraron registros con el ID ${idFromUrl}`;
+                    document.getElementById('acceso').innerHTML = `<p class="text-center text-red-500">${errorMessage}</p>`;
+                    return [];
+                }
+                if (!Array.isArray(filteredData) || filteredData.length === 0) {
+                    console.error("No se encontraron registros coincidentes.");
+                    return [];
+                }
+                return filteredData.map((ordenCargue) => [
                     ordenCargue.id,
-                    ordenCargue.fecha_solicitud,
                     ordenCargue.contenedor,
-                    ordenCargue.cliente,
                     ordenCargue.tipo_contenedor,
-                    ordenCargue.modalidad,
-                    ordenCargue.cutoff,
-                    ordenCargue.operacion,
-                    ordenCargue.comentario
                 ]);
             } else {
-                console.error("La respuesta del servidor no contiene datos válidos.");
+                document.getElementById('acceso').innerHTML = '<p class="text-center">No hay datos disponibles.</p>';
                 return [];
             }
         }
     },
+
     resizable: true,
     style: {
-        table: { width: "80%" }
+        table: { width: "100%" }
     }
 }).render(document.getElementById('acceso'));
 
