@@ -1,11 +1,10 @@
-// Obtén el ID de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
-// URL de tu API
+
 const apiUrl = `https://esenttiapp-production.up.railway.app/api/uploadordenbyqr/${id}`;
 
-// Función para llenar el formulario
+
 async function llenarFormulario() {
     try {
         const response = await fetch(apiUrl);
@@ -14,7 +13,6 @@ async function llenarFormulario() {
         if (data.length > 0) {
             const orden = data[0];
 
-            // Campos de texto e input
             document.getElementById('fecha_solicitud').value = orden.fecha_solicitud;
             document.getElementById('id_sitio_inspeccion').value = orden.sitio_inspeccion;
             document.getElementById('id_sitio_inspeccion1').value = orden.sitio_inspeccion1;
@@ -27,7 +25,6 @@ async function llenarFormulario() {
             document.getElementById('hora_soli').value = orden.hora;
             document.getElementById('observaciones').value = orden.observacion;
 
-            // Campos select (mostrar valor directamente)
             document.getElementById('id_placa').value = orden.placa;
             document.getElementById('id_cliente').value = orden.cliente;
             document.getElementById('id_conductor').value = orden.conductor;
@@ -43,5 +40,4 @@ async function llenarFormulario() {
     }
 }
 
-// Llama a la función para llenar el formulario al cargar la página
 llenarFormulario();
