@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let inactivityTimeout;
 
     function startInactivityTimer() {
-        inactivityTimeout = setTimeout(logoutUser, 1 * 60 * 1000); // 5 minutos en milisegundos
+        inactivityTimeout = setTimeout(logoutUser, 10 * 60 * 1000); // 10 minutos
     }
 
     function resetInactivityTimer() {
@@ -31,20 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     window.location.href = "index.html";
                 } else {
-                    // Manejo de errores (puedes mostrar una alerta, etc.)
+
                     console.error("Error al cerrar sesión:", response.status);
                 }
             } catch (error) {
-                // Manejo de errores de red
+
                 console.error("Error de red:", error);
             }
         } else {
-            // No hay token, redirige directamente a la página de inicio de sesión
+
             window.location.href = "/index.html";
         }
     }
 
-    // Agrega el event listener al botón de logout
     function addLogoutEventListener() {
         const logoutButton = document.getElementById("logout-button");
         if (logoutButton) {
@@ -54,11 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Reinicia el temporizador en cada evento de usuario
     document.addEventListener("mousemove", resetInactivityTimer);
     document.addEventListener("keypress", resetInactivityTimer);
 
-    // Inicia el temporizador al cargar la página
     startInactivityTimer();
     addLogoutEventListener();
 });

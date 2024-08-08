@@ -5,18 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
 
-    // Verificar si hay un token almacenado al cargar la página
+
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
         window.location.href = "home.html";
     }
 
-    // botón cerrar (sin cambios)
+    // botón cerrar 
     closeBtn.addEventListener("click", () => {
         overlay.style.display = "none";
     });
 
-    // Envío del formulario (sin cambios)
+    // Envío del formulario 
     loginForm.addEventListener("submit", async(event) => {
         event.preventDefault();
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Resto del código (sin cambios)
+
     $("#layoutv2-placeholder").load("/Componentes/layoutv2.html", function() {
         console.log('layoutv2 loaded');
         initializeLoginComponent();
