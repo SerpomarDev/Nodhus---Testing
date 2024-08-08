@@ -1,38 +1,64 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Función para agregar el event listener al botón de cierre de sesión (si existe)
+document.addEventListener('DOMContentLoaded', function() {
+    let inactivityTimeout;
+
+    function startInactivityTimer() {
+        inactivityTimeout = setTimeout(logoutUser, 1 * 60 * 1000); // 5 minutos en milisegundos
+    }
+
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        startInactivityTimer();
+    }
+
+    async function logoutUser() {
+        const authToken = localStorage.getItem("authToken");
+
+        if (authToken) { // Verifica si hay un token antes de intentar cerrar sesión
+            try {
+                const response = await fetch("https://esenttiapp-production.up.railway.app/api/logout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${authToken}`,
+                    },
+                });
+
+                if (response.ok) {
+                    localStorage.removeItem("authToken");
+                    localStorage.removeItem("userData");
+                    document.cookie.split(";").forEach(function(c) {
+                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                    });
+                    window.location.href = "index.html";
+                } else {
+                    // Manejo de errores (puedes mostrar una alerta, etc.)
+                    console.error("Error al cerrar sesión:", response.status);
+                }
+            } catch (error) {
+                // Manejo de errores de red
+                console.error("Error de red:", error);
+            }
+        } else {
+            // No hay token, redirige directamente a la página de inicio de sesión
+            window.location.href = "/index.html";
+        }
+    }
+
+    // Agrega el event listener al botón de logout
     function addLogoutEventListener() {
         const logoutButton = document.getElementById("logout-button");
         if (logoutButton) {
-            logoutButton.addEventListener("click", async () => {
-                const authToken = localStorage.getItem("authToken");
-
-                try {
-                    const response = await fetch("https://esenttiapp-production.up.railway.app/api/logout", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${authToken}`,
-                        },
-                    });
-
-                    if (response.ok) {
-                        localStorage.removeItem("authToken");
-                        window.location.href = "index.html"; // Redirige a la página de inicio de sesión
-                    } else {
-                        const errorData = await response.json();
-                        alert("Error al cerrar sesión: " + (errorData.message || "Inténtalo de nuevo."));
-                    }
-                } catch (error) {
-                    console.error("Error de red:", error);
-                    alert("Ocurrió un error de red. Por favor, inténtalo de nuevo más tarde.");
-                }
-            });
+            logoutButton.addEventListener("click", logoutUser);
         } else {
-            // El botón aún no existe, intentar de nuevo después de un breve retraso
             setTimeout(addLogoutEventListener, 100);
         }
     }
 
-    // Llamar a la función para agregar el event listener
+    // Reinicia el temporizador en cada evento de usuario
+    document.addEventListener("mousemove", resetInactivityTimer);
+    document.addEventListener("keypress", resetInactivityTimer);
+
+    // Inicia el temporizador al cargar la página
+    startInactivityTimer();
     addLogoutEventListener();
 });
