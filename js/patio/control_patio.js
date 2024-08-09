@@ -155,7 +155,7 @@ new gridjs.Grid({
 function time() {
     document.getElementById('craeateAccesoPatio').reset();
     setTimeout(() => {
-
+        window.location.href = `/view/patio/inventario.html`;
     }, 1200);
 }
 
