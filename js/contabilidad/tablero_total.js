@@ -1,6 +1,10 @@
 
-       const apiUrl = 'https://esenttiapp-production.up.railway.app/api/asignacionespendientepago';
-
+       const apiUrl = fetch('https://esenttiapp-production.up.railway.app/api/asignacionespendienteordencompra',{
+        method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+            }
+       })
 
        async function fetchData() {
            try {
@@ -13,7 +17,7 @@
 
              
                data.forEach(item => {
-                   if (item.estado === 'PENDIENTE PAGO') {
+                   if (item.estado === 'ORDEN COMPRA PENDIENTE') {
                        totalSP += 1;
                        totalTarifa += parseFloat(item.tarifa);
                    }
@@ -21,7 +25,7 @@
 
            
                document.getElementById('total-abiertas').innerText = totalSP;
-               document.getElementById('valor-total-abiertas').innerText = totalTarifa.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+               document.getElementById('valor-total-abiertas').innerText = totalTarifa.toLocaleString('es-CO', { currency: 'COP' });
            } catch (error) {
                console.error('Error al obtener los datos:', error);
            }

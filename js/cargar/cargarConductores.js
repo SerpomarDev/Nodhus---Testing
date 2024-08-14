@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let inputTelefono = document.getElementById('telefono');
   
     // Carga inicial de los nombres de los conductores en el select
-    fetch('https://esenttiapp-production.up.railway.app/api/uploadconductor')
+      fetch('https://esenttiapp-production.up.railway.app/api/uploadconductor',{
+        method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+          }
+      })
       .then(response => response.json())
       .then(data => {
         data.forEach(conductor => {
@@ -24,7 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let idConductorSeleccionado = this.value
 
-        fetch(`https://esenttiapp-production.up.railway.app/api/uploadoptid/${idConductorSeleccionado}`)  
+          fetch(`https://esenttiapp-production.up.railway.app/api/uploadoptid/${idConductorSeleccionado}`,{
+            method: 'GET',
+              headers: {
+                  'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+              }
+          })  
           .then(response => {
             if (!response.ok) {
               throw new Error('Error en la respuesta de la API: ' + response.statusText);

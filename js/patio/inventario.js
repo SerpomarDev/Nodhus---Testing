@@ -31,7 +31,7 @@ new gridjs.Grid({
     sort: false,
     columns: [{
             name: "id",
-            hidden: true
+            hidden: false
         },
         "Contenedor",
         "Cliente",
@@ -40,6 +40,8 @@ new gridjs.Grid({
         "Cutoff",
         "Naviera",
         "Operación",
+        "estado",
+        "fecha",
         {
             name: 'Acción',
             hidden: 'true',
@@ -64,8 +66,14 @@ new gridjs.Grid({
     fixedHeader: true,
     server: {
         url: `https://esenttiapp-production.up.railway.app/api/cargarinventario`,
+        headers: {
+           
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`
+        },
         then: (data) => {
             if (Array.isArray(data) && data.length > 0) {
+                data.sort((a, b) => b.id - a.id);
+
                 return data.map((ordenCargue) => [
                     ordenCargue.id,
                     ordenCargue.contenedor,
@@ -74,7 +82,9 @@ new gridjs.Grid({
                     ordenCargue.modalidad,
                     ordenCargue.cutoff,
                     ordenCargue.naviera,
-                    ordenCargue.operacion
+                    ordenCargue.operacion,
+                    ordenCargue.lleno_vacio,
+                    ordenCargue.fecha_entrada,
                 ]);
             } else {
                 console.error("La respuesta del servidor no contiene datos válidos.");
@@ -87,6 +97,8 @@ new gridjs.Grid({
         table: { with: "100%" }
     }
 }).render(document.getElementById('inventario'));
+
+localStorage.setItem("authToken", data.token);
 
 function time() {
     setTimeout(() => {

@@ -2,6 +2,8 @@ let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
 let id = urlParams.get("id");
 
+contenedorByAsignacion(id)
+
 if (id) {
     cargarValores(id);
 } else {
@@ -9,7 +11,12 @@ if (id) {
 }
 
 function cargarValores(id) {
-    fetch(`https://esenttiapp-production.up.railway.app/api/asignacioncontenedors/${id}`)
+        fetch(`https://esenttiapp-production.up.railway.app/api/asignacioncontenedors/${id}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+            }
+        })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Error al obtener los datos de la API");
@@ -22,9 +29,6 @@ function cargarValores(id) {
                 document.getElementById("id_contenedor").value = asigcont.id_contenedor;
                 document.getElementById("id_cliente").value = asigcont.id_cliente;
                 document.getElementById("imp_exp").value = asigcont.imp_exp;
-                // document.getElementById("id_tipo_contenedor").value = asigcont.tipo;
-                // document.getElementById("nu_serie").value = asigcont.numero;
-                // document.getElementById("peso").value = asigcont.peso;
 
                 let impExpValor = asigcont.imp_exp;
                 let id_cliente = asigcont.id_cliente;
@@ -123,6 +127,9 @@ function crearTablas(id_contenedor, id_cliente, impExpValor) {
         fixedHeader: true,
         server: {
             url: `https://esenttiapp-production.up.railway.app/api/uploadexpo/${id_contenedor}/${id_cliente}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
             then: (data) => {
                 if (Array.isArray(data) && data.length > 0) {
                     return data.map((asigContEx) => [
@@ -154,6 +161,8 @@ function crearTablas(id_contenedor, id_cliente, impExpValor) {
             }
         }
     }).render(document.getElementById('cargarExpo'));
+
+    localStorage.setItem("authToken", data.token);
 
     // Tabla Importacion
     new gridjs.Grid({
@@ -228,6 +237,9 @@ function crearTablas(id_contenedor, id_cliente, impExpValor) {
         fixedHeader: true,
         server: {
             url: `https://esenttiapp-production.up.railway.app/api/uploadimpo/${id_contenedor}/${id_cliente}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
             then: (data) => {
                 if (Array.isArray(data) && data.length > 0) {
                     return data.map((asigContImp) => [
@@ -261,6 +273,8 @@ function crearTablas(id_contenedor, id_cliente, impExpValor) {
             }
         }
     }).render(document.getElementById('cargarImpo'));
+
+    localStorage.setItem("authToken", data.token);
 }
 
 function time() {
@@ -274,10 +288,36 @@ function editAsignacion(id) {
     window.location.href = `/view/asignacion/edit.html?id=${id}`
 }
 
-// function addordenSer(id) {
-//     window.location.href = `/view/orden_servicio/create.html?id=${id}`;
-// }
 
 function cancelarAsignacion(id) {
     cancelarAsignacion(id)
+}
+
+function contenedorByAsignacion(id){
+
+    fetch(`https://esenttiapp-production.up.railway.app/api/asignacioncontenedors/${id}`,{
+        method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+            }
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Error al obtener los datos de la API");
+        }
+        return response.json();
+    })
+    .then((data) => {
+        if (data.length > 0) {
+            const contasig = data[0];
+            document.getElementById("id_tipo_contenedor").value = contasig.tipo;
+            document.getElementById("nu_serie").value = contasig.numero;
+            document.getElementById("peso").value = contasig.peso;
+        } else {
+            console.log("La propiedad array no existe en la respuesta");
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
 }

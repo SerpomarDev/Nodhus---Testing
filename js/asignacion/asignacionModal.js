@@ -20,7 +20,10 @@ document.getElementById("saveAsignacion").addEventListener("submit", function (e
 
   fetch("https://esenttiapp-production.up.railway.app/api/saveasignacion", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+       "Content-Type": "application/json",
+       'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+       },
     body: jsonData,
   })
     .then((response) => {
@@ -36,8 +39,8 @@ document.getElementById("saveAsignacion").addEventListener("submit", function (e
         icon: "success"
       });
       setTimeout(() => {
-       location.reload();
-      },);
+        location.reload();
+      }, 1500);
     })
     .catch((error) => {
       console.error("Error:", error);

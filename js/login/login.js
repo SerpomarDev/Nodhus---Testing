@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
 
-
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
         window.location.href = "home.html";
@@ -20,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
     loginForm.addEventListener("submit", async(event) => {
         event.preventDefault();
 
+        // Deshabilitar el botón de envío
+        const submitButton = event.target.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+
         const email = usernameInput.value;
         const password = passwordInput.value;
 
@@ -32,7 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const data = await response.json();
+
+                // Guardar tanto el token como el user_id en localStorage
                 localStorage.setItem("authToken", data.token);
+                localStorage.setItem("userId", data.user_id);
+
                 window.location.href = "home.html";
             } else {
                 alert("Credenciales inválidas. Por favor, inténtalo de nuevo.");
@@ -40,9 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error("Error durante el inicio de sesión:", error);
             alert("Ocurrió un error durante el inicio de sesión. Por favor, inténtalo de nuevo más tarde.");
+        } finally {
+            // Volver a habilitar el botón al finalizar
+            submitButton.disabled = false;
         }
     });
-
 
     $("#layoutv2-placeholder").load("/Componentes/layoutv2.html", function() {
         console.log('layoutv2 loaded');

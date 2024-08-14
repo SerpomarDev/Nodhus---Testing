@@ -2,7 +2,12 @@ let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
 let id = urlParams.get("id");
 
-fetch(`https://esenttiapp-production.up.railway.app/api/editcontenedor/${id}`)
+    fetch(`https://esenttiapp-production.up.railway.app/api/editcontenedor/${id}`,{
+      method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+        }
+    })
     .then((response) => {
       if (!response.ok) {
           throw new Error("Error al obtener los datos de la API");
@@ -37,7 +42,10 @@ fetch(`https://esenttiapp-production.up.railway.app/api/editcontenedor/${id}`)
 
         fetch(`https://esenttiapp-production.up.railway.app/api/contenedores/${id}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ${localStorage.getItem("authToken")}`
+             },
             body: jsonData,
         })
             .then((response) => {
@@ -55,16 +63,11 @@ fetch(`https://esenttiapp-production.up.railway.app/api/editcontenedor/${id}`)
                 });
             })
             .then(response=>{
-              time()
+              setTimeout(() => {
+                location.reload();
+              }, 1500);
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
     });
-
-    function time() {
-        document.getElementById('editContenedor').reset();
-        setTimeout(() => {
-          location.reload();
-        },  1500);
-      }

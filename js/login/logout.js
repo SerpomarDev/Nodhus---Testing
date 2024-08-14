@@ -1,19 +1,20 @@
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    let inactivityTimeout;
-
-    function startInactivityTimer() {
-        inactivityTimeout = setTimeout(logoutUser, 10 * 60 * 1000); // 10 minutos
-    }
-
-    function resetInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-        startInactivityTimer();
+    // Manejo del botón de cierre de sesión (si existe)
+    function addLogoutEventListener() {
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", logoutUser);
+        } else {
+            setTimeout(addLogoutEventListener, 100); 
+        }
     }
 
     async function logoutUser() {
         const authToken = localStorage.getItem("authToken");
 
-        if (authToken) { // Verifica si hay un token antes de intentar cerrar sesión
+        if (authToken) { 
             try {
                 const response = await fetch("https://esenttiapp-production.up.railway.app/api/logout", {
                     method: "POST",
@@ -24,38 +25,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (response.ok) {
-                    localStorage.removeItem("authToken");
-                    localStorage.removeItem("userData");
+                    // Cierre de sesión exitoso en el servidor, borrar datos locales y redirigir
+                    localStorage.clear();
                     document.cookie.split(";").forEach(function(c) {
                         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                     });
-                    window.location.href = "index.html";
+                    window.location.replace("/"); 
                 } else {
-
-                    console.error("Error al cerrar sesión:", response.status);
+                    // Error al cerrar sesión en el servidor, forzar cierre de sesión en el navegador
+                    console.error("Error al cerrar sesión en el servidor:", response.status);
+                    forceLogout();
                 }
             } catch (error) {
-
-                console.error("Error de red:", error);
+                // Error de red, forzar cierre de sesión en el navegador
+                console.error("Error de red al intentar cerrar sesión en el servidor:", error);
+                forceLogout();
             }
         } else {
-
-            window.location.href = "/index.html";
+            window.location.replace("/"); 
         }
     }
 
-    function addLogoutEventListener() {
-        const logoutButton = document.getElementById("logout-button");
-        if (logoutButton) {
-            logoutButton.addEventListener("click", logoutUser);
-        } else {
-            setTimeout(addLogoutEventListener, 100);
-        }
+    function forceLogout() {
+        // Borrar cookies
+        document.cookie.split(";").forEach(function(c) {
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+
+        // Borrar localStorage
+        localStorage.clear();
+
+        // Redirigir a la página de inicio
+        window.location.replace("/"); 
     }
 
-    document.addEventListener("mousemove", resetInactivityTimer);
-    document.addEventListener("keypress", resetInactivityTimer);
-
-    startInactivityTimer();
-    addLogoutEventListener();
+    addLogoutEventListener(); 
 });

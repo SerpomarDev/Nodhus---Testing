@@ -6,10 +6,10 @@ new gridjs.Grid({
             placeholder: '🔍 Buscar...'
         }
     },
-    // pagination: {
-    //     limit:7,
-    //     enabled: true,
-    // },
+    pagination: {
+        limit:30,
+        enabled: true,
+    },
     resizable: true,
     sort: false,
     columns: [
@@ -27,7 +27,7 @@ new gridjs.Grid({
                 }
             }
         }
-    }, "DO pedido","Pedido","Contendores","Tipo Transporte","Cliente",{
+    }, "DO pedido","Pedido","Contendores","Tipo Transporte","Cliente","Fecha entrada",{
         name:'Acciones',
         hidden:true,
         columns:[{
@@ -73,6 +73,9 @@ new gridjs.Grid({
     // sort: true,
     server: {
         url: "https://esenttiapp-production.up.railway.app/api/showsolicitudserv",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`
+        },
         then: (data) => {
             if (Array.isArray(data) && data.length > 0) {
                 return data.map((soliserv) => [
@@ -83,6 +86,7 @@ new gridjs.Grid({
                     soliserv.contenedor,
                     soliserv.impexp,
                     soliserv.cliente,
+                    soliserv.fecha_actualizacion,
 
                 ]);
             } else {
@@ -92,6 +96,8 @@ new gridjs.Grid({
         }
     }
 }).render(document.getElementById('ordenService'));
+
+localStorage.setItem("authToken", data.token);
 
 function showOrdenService(id){
     window.location.href = `/view/contenedor/create.html?id=${id}`
